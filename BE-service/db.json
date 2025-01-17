@@ -1,5 +1,13 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": "df70",
+      "name": "Pokemonek",
+      "email": "pokemon@o2.pl",
+      "password": "Pokemon13$",
+      "repeatPassword": "Pokemon13$"
+    }
+  ],
   "pokemons": [],
   "favorites": [],
   "arena": []
