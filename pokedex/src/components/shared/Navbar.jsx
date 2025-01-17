@@ -67,9 +67,9 @@ const Navbar = () => {
   return (
     <nav className="flex flex-col bg-blue-500 p-4" style={{ background: gradients[theme] }}>
       {/* Logo i przełącznik motywu */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between">
         <div className="flex items-center cursor-pointer" onClick={() => navigate('/')}>
-          <img src={PokemonLogo} alt="Pokemon Logo" className="w-full h-24" />
+          <img src={PokemonLogo} alt="Pokemon Logo" className="w-full h-28" />
         </div>
 
         <div className="flex items-center">

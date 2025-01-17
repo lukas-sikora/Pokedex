@@ -16,9 +16,9 @@ import Edit from "./components/subpages/Edit";
 const App = () => {
   return (
     <ThemeProvider>
+          <Router>
       <LoginProvider>
         <DataProvider>
-          <Router>
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -30,9 +30,9 @@ const App = () => {
               <Route path="/ranking" element={<Ranking />} />
               <Route path="/edit" element={<Edit />} />
             </Routes>
-          </Router>
         </DataProvider>
       </LoginProvider>
+          </Router>
     </ThemeProvider>
   );
 };

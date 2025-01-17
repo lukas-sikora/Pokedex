@@ -11,7 +11,7 @@ const SwordIconComponent = ({ isInArena, onToggleArena }) => {
         e.stopPropagation();
         onToggleArena();
       }}
-      className="absolute top-2 right-10 w-8 h-8 cursor-pointer"
+      className="absolute top-2 left-16 w-8 h-8 cursor-pointer"
     />
   );
 };

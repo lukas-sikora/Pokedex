@@ -69,27 +69,14 @@ const PokemonCard = ({ pokemon, isArenaSlot }) => {
         </div>
       </div>
 
-      {/* Wyświetlanie statystyk walki tylko dla zalogowanych użytkowników */}
-      {user && pokemon.win !== undefined && (
-        <div className="absolute top-2 right-2 bg-yellow-500 text-black px-2 py-1 rounded">
-          <p>W: {pokemon.win}</p>
-          <p>L: {pokemon.lose}</p>
-        </div>
-      )}
-
-      {/* Przycisk usuwania z areny */}
-      {arenaIndex !== -1 && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation(); // Zapobiega nawigacji po kliknięciu w przycisk
-            removeFromArena(pokemon.pokeID);
-          }}
-          className="absolute top-2 left-2 bg-gray-600 text-white p-1 rounded-lg"
-        >
-          Usuń
-        </button>
-      )}
-    </div>
+      {/* Wyświetlanie statystyk walki tylko dla Pokémonów, które brały udział w walkach */}
+      {user && pokemon.hasFight && (
+  <div className="absolute top-2 right-2 bg-yellow-500 text-black px-2 py-1 rounded">
+    <p>W: {pokemon.win}</p>
+    <p>L: {pokemon.lose}</p>
+  </div>
+)}
+ </div>
   );
 };
 

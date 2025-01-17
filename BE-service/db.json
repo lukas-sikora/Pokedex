@@ -10,35 +10,7 @@
   ],
   "pokemons": [
     {
-      "id": "cb15",
-      "pokeID": "1",
-      "name": "bulbasaur",
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-      "base_experience": 64,
-      "height": 10,
-      "weight": 69,
-      "abilities": [
-        {
-          "name": "overgrow"
-        },
-        {
-          "name": "chlorophyll"
-        }
-      ],
-      "win": 0,
-      "lose": 0
-    },
-    {
-      "id": "f793",
-      "name": "Lelumpolelum",
-      "weight": 333,
-      "height": 333,
-      "base_experience": 333,
-      "pokeID": "lelumpolelum_1737080060743",
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
-    },
-    {
-      "id": "1737080389816",
+      "id": "1737088727574",
       "pokeID": "3",
       "name": "venusaur",
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
@@ -54,35 +26,48 @@
         }
       ],
       "win": 1,
-      "lose": 0
+      "lose": 0,
+      "hasFight": true
     },
     {
-      "id": "1737080398781",
-      "pokeID": "5",
-      "name": "charmeleon",
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png",
-      "base_experience": 142,
-      "height": 11,
-      "weight": 190,
+      "pokeID": "1",
+      "name": "bulbasaur",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+      "base_experience": 64,
+      "height": 13,
+      "weight": 69,
       "abilities": [
         {
-          "name": "blaze"
+          "name": "overgrow"
         },
         {
-          "name": "solar-power"
+          "name": "chlorophyll"
         }
       ],
       "win": 0,
-      "lose": 1
+      "lose": 1,
+      "id": "1737088721898",
+      "hasFight": true
     },
     {
-      "id": "8a99",
+      "id": "a0e6",
+      "name": "Testtest",
+      "weight": 100,
+      "height": 176,
+      "base_experience": 10000,
+      "pokeID": "testtest_1737088790789",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+    }
+  ],
+  "favorites": [
+    {
+      "id": "1737088813005",
       "pokeID": "2",
       "name": "ivysaur",
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
       "base_experience": 142,
       "height": 10,
-      "weight": 1300,
+      "weight": 130,
       "abilities": [
         {
           "name": "overgrow"
@@ -95,15 +80,24 @@
       "lose": 0
     },
     {
-      "id": "4b2d",
-      "name": "Firestorm",
-      "weight": 10000,
-      "height": 20000,
-      "base_experience": 50000000,
-      "pokeID": "firestorm_1737080545737",
-      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
+      "id": "1737088817907",
+      "pokeID": "8",
+      "name": "wartortle",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png",
+      "base_experience": 142,
+      "height": 10,
+      "weight": 225,
+      "abilities": [
+        {
+          "name": "torrent"
+        },
+        {
+          "name": "rain-dish"
+        }
+      ],
+      "win": 0,
+      "lose": 0
     }
   ],
-  "favorites": [],
   "arena": []
 }

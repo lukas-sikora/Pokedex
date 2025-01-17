@@ -45,12 +45,14 @@ const Arena = () => {
       win: (winner.win || 0) + 1,
       lose: winner.lose || 0,
       base_experience: winner.base_experience + 10,
+      hasFight: true,
     };
 
     const updatedLoser = {
       ...loser,
       win: loser.win || 0,
       lose: (loser.lose || 0) + 1,
+      hasFight: true,
     };
 
     await updatePokemon(updatedWinner);
@@ -63,11 +65,23 @@ const Arena = () => {
     enqueueSnackbar("Pokemony opuściły arenę.", { variant: "info" });
   };
 
+  const getCardStyle = (pokemon) => {
+    if (battleResult?.winner?.pokeID === pokemon.pokeID) {
+      return "transform scale-105 blur-none"; // Powiększenie dla zwycięzcy
+    }
+    if (battleResult?.loser?.pokeID === pokemon.pokeID) {
+      return "transform scale-95 blur-sm"; // Zmniejszenie i rozmycie dla przegranego
+    }
+    return ""; // Normalny styl dla reszty
+  };
+
   return (
     <div className="p-6">
-      <div className="grid grid-cols-3 gap-4">
+      {/* Responsywny układ kart */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+        {/* Pierwszy Pokémon na arenie */}
         {arena[0] ? (
-          <div className="relative">
+          <div className={`relative ${getCardStyle(arena[0])}`}>
             <PokemonCard pokemon={arena[0]} />
             {battleResult === null && (
               <button
@@ -85,11 +99,12 @@ const Arena = () => {
             className="w-full h-full object-contain"
           />
         )}
-
+  
+        {/* Przycisk WALCZ/OPUŚĆ ARENĘ */}
         <div className="flex flex-col items-center justify-center">
           {battleResult ? (
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               onClick={handleExitArena}
             >
               Opuść arenę
@@ -108,9 +123,10 @@ const Arena = () => {
             </button>
           )}
         </div>
-
+  
+        {/* Drugi Pokémon na arenie */}
         {arena[1] ? (
-          <div className="relative">
+          <div className={`relative ${getCardStyle(arena[1])}`}>
             <PokemonCard pokemon={arena[1]} />
             {battleResult === null && (
               <button
@@ -129,26 +145,15 @@ const Arena = () => {
           />
         )}
       </div>
-
+  
+      {/* Komunikat o remisie */}
       {battleResult && battleResult.draw && (
         <div className="mt-4 text-center">
           <h2 className="text-xl font-bold">Remis!</h2>
         </div>
       )}
-      {battleResult && battleResult.winner && battleResult.loser && (
-        <div className="mt-4 text-center">
-          <h2 className="text-xl font-bold">
-            {battleResult.winner.name} wygrał walkę!
-          </h2>
-          <img
-            src={battleResult.loser.image}
-            alt={`${battleResult.loser.name} przegrywa`}
-            className="w-24 h-24 mx-auto opacity-50 transform scale-75"
-          />
-        </div>
-      )}
     </div>
   );
-};
+}  
 
 export default Arena;

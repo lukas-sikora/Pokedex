@@ -90,29 +90,39 @@ export const DataProvider = ({ children }) => {
       const existingPokemon = response.data.find(
         (pokemon) => pokemon.pokeID === updatedPokemon.pokeID
       );
-
+  
       if (existingPokemon) {
+        // Aktualizacja istniejącego Pokémona z flagą `hasFight`
         await axios.put(
           `http://localhost:5000/pokemons/${existingPokemon.id}`,
-          updatedPokemon
+          { ...updatedPokemon, hasFight: true }
         );
       } else {
-        await axios.post("http://localhost:5000/pokemons", updatedPokemon);
+        // Dodanie nowego Pokémona z flagą `hasFight`
+        await axios.post("http://localhost:5000/pokemons", {
+          ...updatedPokemon,
+          hasFight: true,
+        });
       }
-
+  
+      // Aktualizacja stanu lokalnego
       setPokemons((prevPokemons) =>
         prevPokemons.some((p) => p.pokeID === updatedPokemon.pokeID)
           ? prevPokemons.map((p) =>
-              p.pokeID === updatedPokemon.pokeID ? updatedPokemon : p
+              p.pokeID === updatedPokemon.pokeID
+                ? { ...updatedPokemon, hasFight: true }
+                : p
             )
-          : [...prevPokemons, updatedPokemon]
+          : [...prevPokemons, { ...updatedPokemon, hasFight: true }]
       );
-
+  
       console.log("Pokémon został zaktualizowany w stanie lokalnym i w db.json.");
     } catch (error) {
       console.error("Błąd podczas aktualizacji Pokémona:", error);
     }
   };
+  
+
   const addToFavorites = async (pokemon) => {
     try {
       const newFavorite = { ...pokemon, id: `${Date.now()}` };
