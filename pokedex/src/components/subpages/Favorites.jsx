@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import PokemonCard from "../shared/PokemonCard";
 import { DataContext } from "../../context/DataContext";
 

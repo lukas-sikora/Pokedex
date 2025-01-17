@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import arrowLeft from "../../assets/PNG/arrowleft.png";
 import arrowRight from "../../assets/PNG/arrowright.png";
@@ -26,20 +26,15 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <div className="flex justify-center mt-6 items-center space-x-4">
-      {/* Przycisk "Poprzednia" */}
       <button
         className={`px-4 py-2 rounded ${
-          theme === "dark"
-            ? "bg-gray-700 text-white"
-            : "bg-blue-500 text-white"
+          theme === "dark" ? "bg-gray-700 text-white" : "bg-blue-500 text-white"
         }`}
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
         <img src={arrowLeft} alt="prev" className="w-6 h-6" />
       </button>
-
-      {/* Pole do wpisywania numeru strony */}
       <span
         className={`flex items-center px-4 py-2 border rounded ${
           theme === "dark"
@@ -62,13 +57,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         />{" "}
         z {totalPages}
       </span>
-
-      {/* Przycisk "Następna" */}
       <button
         className={`px-4 py-2 rounded ${
-          theme === "dark"
-            ? "bg-gray-700 text-white"
-            : "bg-blue-500 text-white"
+          theme === "dark" ? "bg-gray-700 text-white" : "bg-blue-500 text-white"
         }`}
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}

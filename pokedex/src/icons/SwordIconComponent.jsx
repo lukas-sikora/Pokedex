@@ -1,4 +1,3 @@
-import React from "react";
 import swordIcon from "../assets/ICON/sword.png";
 import swordFilledIcon from "../assets/ICON/swordFilledIcon.png";
 

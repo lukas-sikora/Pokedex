@@ -23,13 +23,12 @@ const PokemonDetails = () => {
   const { name } = useParams();
   const [pokemon, setPokemon] = useState(null);
 
-  // Pobieranie szczegółów Pokémona
   useEffect(() => {
     const selectedPokemon = pokemons.find((p) => p.name === name);
     if (selectedPokemon) {
       setPokemon(selectedPokemon);
     } else {
-      enqueueSnackbar("Pokémon nie został znaleziony.", { variant: "error" });
+      enqueueSnackbar("Pokemon nie został znaleziony.", { variant: "error" });
     }
   }, [name, pokemons, enqueueSnackbar]);
 
@@ -41,11 +40,8 @@ const PokemonDetails = () => {
     );
   }
 
-  // Sprawdzanie, czy Pokemon jest ulubiony lub na arenie
   const isFavorite = favorites.some((fav) => fav.name === pokemon.name);
   const isInArena = arena.some((ar) => ar.name === pokemon.name);
-
-  // Obsługa dodawania/odznaczania ulubionych
   const handleFavoriteToggle = () => {
     const favoritePokemon = favorites.find(
       (fav) => fav.pokeID === pokemon.pokeID
@@ -62,8 +58,6 @@ const PokemonDetails = () => {
       });
     }
   };
-
-  // Obsługa dodawania/odznaczania areny
   const handleArenaToggle = () => {
     if (isInArena) {
       removeFromArena(pokemon.pokeID);
@@ -71,7 +65,7 @@ const PokemonDetails = () => {
         variant: "info",
       });
     } else if (arena.length >= 2) {
-      enqueueSnackbar("Arena jest pełna! Usuń Pokémona, aby dodać nowego.", {
+      enqueueSnackbar("Arena jest pełna! Usuń Pokemona, aby dodać nowego.", {
         variant: "warning",
       });
     } else {
@@ -91,39 +85,32 @@ const PokemonDetails = () => {
         background: gradients[theme],
       }}
     >
-      
       {user && (
         <>
           <div>
-  <HeartIconComponent
-    isFavorite={isFavorite}
-    onToggleFavorite={handleFavoriteToggle}
-  />
-  <SwordIconComponent
-    isInArena={isInArena}
-    onToggleArena={handleArenaToggle}
-  />
-</div>
+            <HeartIconComponent
+              isFavorite={isFavorite}
+              onToggleFavorite={handleFavoriteToggle}
+            />
+            <SwordIconComponent
+              isInArena={isInArena}
+              onToggleArena={handleArenaToggle}
+            />
+          </div>
 
           <div className="absolute top-3 left-28 text-sm text-white bg-gray-700 px-2 py-1 rounded">
             {arena.length}/2
           </div>
         </>
       )}
-
-      {/* Obrazek Pokémona */}
       <img
         src={pokemon.image || "/assets/default-pokemon.png"}
         alt={pokemon.name}
         className="w-64 h-64 object-contain mx-auto mb-6"
       />
-
-      {/* Nazwa Pokémona */}
       <h1 className="text-3xl font-bold capitalize text-center mb-4">
         {pokemon.name}
       </h1>
-
-      {/* Statystyki Pokémona */}
       <div className="grid grid-cols-2 gap-8 text-center">
         <div>
           <p>{pokemon.height}</p>
@@ -138,8 +125,6 @@ const PokemonDetails = () => {
           <p className="font-bold">Ability:</p>
         </div>
       </div>
-
-      {/* Statystyki walk */}
       {pokemon.win !== undefined && (
         <div className="absolute top-2 right-2 bg-gray-700 text-white px-2 py-1 rounded">
           <p>W: {pokemon.win}</p>

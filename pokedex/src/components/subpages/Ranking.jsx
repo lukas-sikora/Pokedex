@@ -10,25 +10,19 @@ const Ranking = () => {
   const [sortCriteria, setSortCriteria] = useState("base_experience");
   const [currentPage, setCurrentPage] = useState(1);
   const pokemonsPerPage = 15;
-
-  // Sortowanie Pokémonów
   const sortedPokemons = [...pokemons].sort((a, b) => {
     if (typeof a[sortCriteria] === "string") {
       return a[sortCriteria].localeCompare(b[sortCriteria]);
     }
     return b[sortCriteria] - a[sortCriteria];
   });
-
-  // Paginacja
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
   const currentPokemons = sortedPokemons.slice(
     indexOfFirstPokemon,
     indexOfLastPokemon
   );
-
   const totalPages = Math.ceil(sortedPokemons.length / pokemonsPerPage);
-
   const handlePageChange = (page) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
@@ -41,9 +35,7 @@ const Ranking = () => {
         theme === "dark" ? "bg-gray-800 text-white" : "bg-white text-black"
       }`}
     >
-      <h1 className="text-3xl font-bold text-center mb-6">Ranking Pokémonów</h1>
-
-      {/* Sekcja sortowania */}
+      <h1 className="text-3xl font-bold text-center mb-6">Ranking</h1>
       <div className="max-w-4xl mx-auto mb-6 flex flex-col items-center">
         <label className="block text-lg font-bold mb-2 text-center">
           Sortuj według:
@@ -52,7 +44,7 @@ const Ranking = () => {
           value={sortCriteria}
           onChange={(e) => {
             setSortCriteria(e.target.value);
-            setCurrentPage(1); // Resetowanie strony do 1 po zmianie sortowania
+            setCurrentPage(1);
           }}
           className={`w-1/4 p-2 rounded border ${
             theme === "dark"
@@ -66,8 +58,6 @@ const Ranking = () => {
           <option value="win">Wygrane walki</option>
         </select>
       </div>
-
-      {/* Lista Pokémonów */}
       <ul className="max-w-4xl mx-auto">
         {currentPokemons.map((pokemon, index) => (
           <li
@@ -90,7 +80,6 @@ const Ranking = () => {
                 className="w-24 h-24 object-contain"
               />
             </div>
-
             <div className="ml-5">
               <div className="flex flex-col text-left">
                 <p>Doświadczenie: {pokemon.base_experience}</p>

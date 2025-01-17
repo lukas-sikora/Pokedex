@@ -31,14 +31,16 @@ const Arena = () => {
       finalizeBattle(pokemon2, pokemon1);
     } else {
       setBattleResult({ draw: true });
-      enqueueSnackbar("Remis! Żaden Pokémon nie wygrywa.", { variant: "info" });
+      enqueueSnackbar("Remis! Żaden Pokemon nie wygrywa.", { variant: "info" });
     }
   };
 
   const finalizeBattle = async (winner, loser) => {
     setBattleResult({ winner, loser });
 
-    enqueueSnackbar(`${capitalize(winner.name)} wygrał walkę!`, { variant: "success" });
+    enqueueSnackbar(`${capitalize(winner.name)} wygrał walkę!`, {
+      variant: "success",
+    });
 
     const updatedWinner = {
       ...winner,
@@ -67,19 +69,17 @@ const Arena = () => {
 
   const getCardStyle = (pokemon) => {
     if (battleResult?.winner?.pokeID === pokemon.pokeID) {
-      return "transform scale-105 blur-none"; // Powiększenie dla zwycięzcy
+      return "transform scale-105 blur-none";
     }
     if (battleResult?.loser?.pokeID === pokemon.pokeID) {
-      return "transform scale-95 blur-sm"; // Zmniejszenie i rozmycie dla przegranego
+      return "transform scale-95 blur-sm";
     }
-    return ""; // Normalny styl dla reszty
+    return "";
   };
 
   return (
     <div className="p-6">
-      {/* Responsywny układ kart */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-        {/* Pierwszy Pokémon na arenie */}
         {arena[0] ? (
           <div className={`relative ${getCardStyle(arena[0])}`}>
             <PokemonCard pokemon={arena[0]} />
@@ -99,8 +99,6 @@ const Arena = () => {
             className="w-full h-full object-contain"
           />
         )}
-  
-        {/* Przycisk WALCZ/OPUŚĆ ARENĘ */}
         <div className="flex flex-col items-center justify-center">
           {battleResult ? (
             <button
@@ -123,8 +121,6 @@ const Arena = () => {
             </button>
           )}
         </div>
-  
-        {/* Drugi Pokémon na arenie */}
         {arena[1] ? (
           <div className={`relative ${getCardStyle(arena[1])}`}>
             <PokemonCard pokemon={arena[1]} />
@@ -145,8 +141,6 @@ const Arena = () => {
           />
         )}
       </div>
-  
-      {/* Komunikat o remisie */}
       {battleResult && battleResult.draw && (
         <div className="mt-4 text-center">
           <h2 className="text-xl font-bold">Remis!</h2>
@@ -154,6 +148,6 @@ const Arena = () => {
       )}
     </div>
   );
-}  
+};
 
 export default Arena;

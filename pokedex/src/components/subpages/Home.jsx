@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import PokemonCard from "../shared/PokemonCard";
@@ -15,12 +15,10 @@ const Home = () => {
     return <p className="text-center">Ładowanie Pokémonów...</p>;
   }
 
-  // Filtracja Pokémonów na podstawie wyszukiwania
   const filteredPokemons = pokemons.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchPoke.toLowerCase())
   );
 
-  // Paginacja
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
   const currentPokemons = filteredPokemons.slice(
@@ -36,7 +34,6 @@ const Home = () => {
         theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
       }`}
     >
-      {/* Wyszukiwarka */}
       <div className="flex justify-center mb-6">
         <input
           type="text"
@@ -46,15 +43,11 @@ const Home = () => {
           className="w-full max-w-md p-2 border border-gray-300 rounded shadow-sm"
         />
       </div>
-
-      {/* Lista Pokémonów */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-lg">
         {currentPokemons.map((pokemon) => (
           <PokemonCard key={pokemon.name} pokemon={pokemon} />
         ))}
       </div>
-
-      {/* Komponent Pagination */}
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { useSnackbar } from "notistack";
 import { DataContext } from "../../context/DataContext";
 import { ThemeContext } from "../../context/ThemeContext";
@@ -16,7 +16,10 @@ const Edit = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
-  const currentPokemons = pokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+  const currentPokemons = pokemons.slice(
+    indexOfFirstPokemon,
+    indexOfLastPokemon
+  );
 
   const handlePageChange = (page) => {
     if (page > 0 && page <= Math.ceil(pokemons.length / pokemonsPerPage)) {
@@ -28,7 +31,7 @@ const Edit = () => {
     try {
       await updatePokemon(pokemon);
       setEditingPokemon(null);
-      enqueueSnackbar("Zapisano zmiany w Pokémonie.", { variant: "success" });
+      enqueueSnackbar("Zapisano zmiany w Pokemonie.", { variant: "success" });
     } catch (error) {
       enqueueSnackbar("Błąd podczas zapisywania zmian.", { variant: "error" });
     }
@@ -72,7 +75,9 @@ const Edit = () => {
                   <span className="text-lg font-semibold mr-4">
                     {(currentPage - 1) * pokemonsPerPage + index + 1}.
                   </span>
-                  <span className="text-lg font-bold capitalize">{pokemon.name}</span>
+                  <span className="text-lg font-bold capitalize">
+                    {pokemon.name}
+                  </span>
                 </div>
                 <div className="flex justify-center items-center w-32">
                   <img
@@ -108,7 +113,10 @@ const Edit = () => {
               onSave={handleSave}
             />
           ) : (
-            <FormAddPokemon onCancel={() => setEditingPokemon(null)} onSave={handleSave} />
+            <FormAddPokemon
+              onCancel={() => setEditingPokemon(null)}
+              onSave={handleSave}
+            />
           )}
         </>
       )}

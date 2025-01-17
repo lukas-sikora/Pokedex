@@ -32,7 +32,6 @@ export const DataProvider = ({ children }) => {
         jsonPokemonsResponse.data.map((p) => [p.pokeID, p])
       );
 
-      // Nakładanie danych z `db.json` na dane z API
       const mergedPokemons = detailedPokemons.map((pokemon) => {
         const jsonPokemon = jsonPokemonMap.get(pokemon.id?.toString());
         return {
@@ -54,16 +53,14 @@ export const DataProvider = ({ children }) => {
         };
       });
 
-      // Dodanie Pokémonów z `db.json`, które nie są w API
       const additionalPokemons = jsonPokemonsResponse.data.filter(
-        (p) => !detailedPokemons.some((apiP) => apiP.id?.toString() === p.pokeID)
+        (p) =>
+          !detailedPokemons.some((apiP) => apiP.id?.toString() === p.pokeID)
       );
 
       setPokemons([...mergedPokemons, ...additionalPokemons]);
       setFavorites(jsonFavoritesResponse.data);
       setArena(jsonArenaResponse.data);
-
-      console.log("Dane zostały poprawnie zsynchronizowane.");
     } catch (error) {
       console.error("Błąd podczas pobierania danych:", error);
     }
@@ -75,12 +72,14 @@ export const DataProvider = ({ children }) => {
 
   const addPokemon = async (newPokemon) => {
     try {
-      const response = await axios.post("http://localhost:5000/pokemons", newPokemon);
+      const response = await axios.post(
+        "http://localhost:5000/pokemons",
+        newPokemon
+      );
 
       setPokemons((prevPokemons) => [...prevPokemons, response.data]);
-      console.log("Nowy Pokémon został dodany i zaktualizowany w stanie lokalnym.");
     } catch (error) {
-      console.error("Błąd podczas dodawania Pokémona:", error);
+      console.error("Błąd podczas dodawania Pokemona:", error);
     }
   };
 
@@ -90,22 +89,19 @@ export const DataProvider = ({ children }) => {
       const existingPokemon = response.data.find(
         (pokemon) => pokemon.pokeID === updatedPokemon.pokeID
       );
-  
+
       if (existingPokemon) {
-        // Aktualizacja istniejącego Pokémona z flagą `hasFight`
         await axios.put(
           `http://localhost:5000/pokemons/${existingPokemon.id}`,
           { ...updatedPokemon, hasFight: true }
         );
       } else {
-        // Dodanie nowego Pokémona z flagą `hasFight`
         await axios.post("http://localhost:5000/pokemons", {
           ...updatedPokemon,
           hasFight: true,
         });
       }
-  
-      // Aktualizacja stanu lokalnego
+
       setPokemons((prevPokemons) =>
         prevPokemons.some((p) => p.pokeID === updatedPokemon.pokeID)
           ? prevPokemons.map((p) =>
@@ -115,13 +111,10 @@ export const DataProvider = ({ children }) => {
             )
           : [...prevPokemons, { ...updatedPokemon, hasFight: true }]
       );
-  
-      console.log("Pokémon został zaktualizowany w stanie lokalnym i w db.json.");
     } catch (error) {
-      console.error("Błąd podczas aktualizacji Pokémona:", error);
+      console.error("Błąd podczas aktualizacji Pokemona:", error);
     }
   };
-  
 
   const addToFavorites = async (pokemon) => {
     try {
@@ -151,7 +144,7 @@ export const DataProvider = ({ children }) => {
 
   const addToArena = async (pokemon) => {
     if (arena.length >= 2) {
-      alert("Arena może pomieścić maksymalnie dwóch Pokémonów!");
+      alert("Arena może pomieścić maksymalnie dwa Pokemony!");
       return;
     }
 
@@ -160,7 +153,7 @@ export const DataProvider = ({ children }) => {
       await axios.post("http://localhost:5000/arena", newArenaPokemon);
       setArena((prev) => [...prev, newArenaPokemon]);
     } catch (error) {
-      console.error("Błąd podczas dodawania Pokémona do areny:", error);
+      console.error("Błąd podczas dodawania Pokemona do areny:", error);
     }
   };
 
@@ -171,12 +164,10 @@ export const DataProvider = ({ children }) => {
         await axios.delete(
           `http://localhost:5000/arena/${arenaPokemonToRemove.id}`
         );
-        setArena((prev) =>
-          prev.filter((pokemon) => pokemon.pokeID !== pokeID)
-        );
+        setArena((prev) => prev.filter((pokemon) => pokemon.pokeID !== pokeID));
       }
     } catch (error) {
-      console.error("Błąd podczas usuwania Pokémona z areny:", error);
+      console.error("Błąd podczas usuwania Pokemona z areny:", error);
     }
   };
   return (

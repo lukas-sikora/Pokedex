@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { LoginContext } from "../../context/LoginContext";
 import { DataContext } from "../../context/DataContext";
 import { useNavigate } from "react-router-dom";
 
-const PokemonCard = ({ pokemon, isArenaSlot }) => {
+const PokemonCard = ({ pokemon, }) => {
   const { theme, gradients } = useContext(ThemeContext);
   const { user } = useContext(LoginContext);
-  const { pokemons, arena, removeFromArena } = useContext(DataContext);
+  const { pokemons} = useContext(DataContext);
   const navigate = useNavigate();
 
   const [details, setDetails] = useState(null);
 
   useEffect(() => {
-    // Pobieranie szczegółowych danych lokalnie z DataContext
     const fetchDetails = () => {
       const detailedPokemon = pokemons.find((p) => p.name === pokemon.name);
       setDetails(detailedPokemon || {});
@@ -22,15 +21,10 @@ const PokemonCard = ({ pokemon, isArenaSlot }) => {
     fetchDetails();
   }, [pokemon.name, pokemons]);
 
-  // Ustalanie poprawnego obrazka Pokémona
   const pokemonImage =
     details?.image ||
     details?.sprites?.other?.["official-artwork"]?.front_default ||
     "/assets/default-pokemon.png";
-
-  // Sprawdzenie, czy Pokémon jest na arenie i przypisanie odpowiedniego indexu
-  const arenaIndex = arena.findIndex((p) => p.pokeID === pokemon.pokeID);
-
   return (
     <div
       className={`w-72-min rounded-lg shadow-lg p-6 relative transform transition-transform duration-200 hover:scale-105 ${
@@ -41,19 +35,14 @@ const PokemonCard = ({ pokemon, isArenaSlot }) => {
       }}
       onClick={() => navigate(`/pokemon/${pokemon.name}`)}
     >
-      {/* Obrazek Pokémona */}
       <img
         src={pokemonImage}
         alt={pokemon.name}
         className="w-48 h-48 object-contain mx-auto mb-6"
-      />
-
-      {/* Nazwa Pokémona */}
+      />{" "}
       <h3 className="text-2xl font-bold capitalize text-center mb-4">
         {pokemon.name}
       </h3>
-
-      {/* Statystyki Pokémona */}
       <div className="grid grid-cols-2 gap-2 text-center">
         <div>
           <p>{details?.height || "N/A"}</p>
@@ -68,15 +57,13 @@ const PokemonCard = ({ pokemon, isArenaSlot }) => {
           <p className="font-bold">Ability:</p>
         </div>
       </div>
-
-      {/* Wyświetlanie statystyk walki tylko dla Pokémonów, które brały udział w walkach */}
       {user && pokemon.hasFight && (
-  <div className="absolute top-2 right-2 bg-yellow-500 text-black px-2 py-1 rounded">
-    <p>W: {pokemon.win}</p>
-    <p>L: {pokemon.lose}</p>
-  </div>
-)}
- </div>
+        <div className="absolute top-2 right-2 bg-yellow-500 text-black px-2 py-1 rounded">
+          <p>W: {pokemon.win}</p>
+          <p>L: {pokemon.lose}</p>
+        </div>
+      )}
+    </div>
   );
 };
 

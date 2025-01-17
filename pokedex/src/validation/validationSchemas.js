@@ -1,8 +1,5 @@
-// src/validation/validationSchemas.js
-
 import { z } from 'zod';
 
-// Wspólny schemat walidacji dla tworzenia i edycji Pokémona
 export const pokemonSchema = z.object({
   name: z.string().min(1, "Nazwa jest wymagana"),
   weight: z.number().min(1, "Waga musi być większa niż 0"),

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import heartIcon from '../assets/ICON/heart.png';
 import heartFilledIcon from '../assets/ICON/heartFilledIcon.png';
@@ -9,7 +8,7 @@ const HeartIconComponent = ({ isFavorite, onToggleFavorite }) => {
   const handleClick = () => {
     onToggleFavorite();
     if (isFavorite) {
-      navigate('/favorites'); // Przekierowanie do ulubionych
+      navigate('/favorites'); 
     }
   };
 

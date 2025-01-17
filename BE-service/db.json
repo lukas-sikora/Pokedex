@@ -45,7 +45,7 @@
         }
       ],
       "win": 0,
-      "lose": 1,
+      "lose": 2,
       "id": "1737088721898",
       "hasFight": true
     },
@@ -57,6 +57,63 @@
       "base_experience": 10000,
       "pokeID": "testtest_1737088790789",
       "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+    },
+    {
+      "id": "1737096351956",
+      "pokeID": "2",
+      "name": "ivysaur",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
+      "base_experience": 152,
+      "height": 10,
+      "weight": 130,
+      "abilities": [
+        {
+          "name": "overgrow"
+        },
+        {
+          "name": "chlorophyll"
+        }
+      ],
+      "win": 1,
+      "lose": 0,
+      "hasFight": true
+    },
+    {
+      "id": "1737096418094",
+      "pokeID": "8",
+      "name": "wartortle",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png",
+      "base_experience": 152,
+      "height": 10,
+      "weight": 225,
+      "abilities": [
+        {
+          "name": "torrent"
+        },
+        {
+          "name": "rain-dish"
+        }
+      ],
+      "win": 1,
+      "lose": 0,
+      "hasFight": true
+    },
+    {
+      "id": "1737096421836",
+      "pokeID": "11",
+      "name": "metapod",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/11.png",
+      "base_experience": 72,
+      "height": 7,
+      "weight": 99,
+      "abilities": [
+        {
+          "name": "shed-skin"
+        }
+      ],
+      "win": 0,
+      "lose": 1,
+      "hasFight": true
     }
   ],
   "favorites": [
@@ -87,6 +144,25 @@
       "base_experience": 142,
       "height": 10,
       "weight": 225,
+      "abilities": [
+        {
+          "name": "torrent"
+        },
+        {
+          "name": "rain-dish"
+        }
+      ],
+      "win": 0,
+      "lose": 0
+    },
+    {
+      "id": "1737095400148",
+      "pokeID": "7",
+      "name": "squirtle",
+      "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
+      "base_experience": 63,
+      "height": 5,
+      "weight": 90,
       "abilities": [
         {
           "name": "torrent"

@@ -7,7 +7,6 @@ import Switch from '@mui/material/Switch';
 import PokemonLogo from '../../assets/PNG/PokemonLogo.png';
 import UserIcon from '../../assets/ICON/user.png';
 
-// Stylowanie przełącznika Material-UI
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -60,14 +59,11 @@ const Navbar = () => {
   const { theme, toggleTheme, gradients } = useContext(ThemeContext);
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Funkcja sprawdzająca aktywny przycisk
-  const isActive = (path) => location.pathname === path;
+    const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="flex flex-col bg-blue-500 p-4" style={{ background: gradients[theme] }}>
-      {/* Logo i przełącznik motywu */}
-      <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between">
         <div className="flex items-center cursor-pointer" onClick={() => navigate('/')}>
           <img src={PokemonLogo} alt="Pokemon Logo" className="w-full h-28" />
         </div>
@@ -82,8 +78,6 @@ const Navbar = () => {
           <MaterialUISwitch checked={theme === 'dark'} onChange={toggleTheme} />
         </div>
       </div>
-
-      {/* Przyciski nawigacyjne */}
       <div className="flex flex-wrap justify-end gap-4 sm:flex-row sm:justify-end sm:gap-2">
         {!user ? (
           <>

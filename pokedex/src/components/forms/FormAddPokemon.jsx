@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { pokemonSchema } from "../../validation/validationSchemas";
@@ -29,7 +29,6 @@ const FormAddPokemon = ({ onCancel }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
-    // Pobieranie dostępnych grafik z kolekcji Pokémonów
     const allImages = pokemons.map((pokemon) => pokemon.image);
     setAvailableImages(allImages);
   }, [pokemons]);
@@ -38,24 +37,23 @@ const FormAddPokemon = ({ onCancel }) => {
     try {
       const newPokemon = {
         ...data,
-        pokeID: `${data.name}_${Date.now()}`, // Generowanie unikalnego pokeID
-        name: data.name.charAt(0).toUpperCase() + data.name.slice(1), // Nazwa z wielką literą
+        pokeID: `${data.name}_${Date.now()}`,
+        name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
         image: availableImages[currentImageIndex],
       };
-  
-      await addPokemon(newPokemon); // Dodanie Pokémona do db.json i stanu lokalnego
+
+      await addPokemon(newPokemon);
       enqueueSnackbar(`Nowy Pokémon ${newPokemon.name} został dodany.`, {
         variant: "success",
       });
-  
+
       reset();
       setCurrentImageIndex(0);
-      navigate("/"); // Przekierowanie na stronę główną
+      navigate("/");
     } catch (error) {
       enqueueSnackbar("Błąd podczas tworzenia Pokémona.", { variant: "error" });
     }
   };
-  
 
   const handleNextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % availableImages.length);
@@ -97,10 +95,7 @@ const FormAddPokemon = ({ onCancel }) => {
           <img src={arrowRight} alt="Następna grafika" className="w-6 h-6" />
         </button>
       </div>
-
       <h2 className="text-2xl font-bold mb-4 text-center">Stwórz Pokémona</h2>
-
-      {/* Pola formularza */}
       <div className="mb-4">
         <label className="block">Nazwa</label>
         <input
@@ -114,13 +109,12 @@ const FormAddPokemon = ({ onCancel }) => {
           <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
         )}
       </div>
-
       <div className="mb-4">
         <label className="block">Waga</label>
         <input
           type="number"
           {...register("weight", {
-            valueAsNumber: true, // Konwersja wartości na liczbę
+            valueAsNumber: true,
           })}
           className={`w-full p-2 border rounded ${
             errors.weight ? "border-red-500" : "border-gray-300"
@@ -130,13 +124,12 @@ const FormAddPokemon = ({ onCancel }) => {
           <p className="text-red-500 text-sm mt-1">{errors.weight.message}</p>
         )}
       </div>
-
       <div className="mb-4">
         <label className="block">Wzrost</label>
         <input
           type="number"
           {...register("height", {
-            valueAsNumber: true, // Konwersja wartości na liczbę
+            valueAsNumber: true,
           })}
           className={`w-full p-2 border rounded ${
             errors.height ? "border-red-500" : "border-gray-300"
@@ -152,7 +145,7 @@ const FormAddPokemon = ({ onCancel }) => {
         <input
           type="number"
           {...register("base_experience", {
-            valueAsNumber: true, // Konwersja wartości na liczbę
+            valueAsNumber: true,
           })}
           className={`w-full p-2 border rounded ${
             errors.base_experience ? "border-red-500" : "border-gray-300"
@@ -164,7 +157,6 @@ const FormAddPokemon = ({ onCancel }) => {
           </p>
         )}
       </div>
-
       <div className="flex justify-between mt-4">
         {onCancel && (
           <button

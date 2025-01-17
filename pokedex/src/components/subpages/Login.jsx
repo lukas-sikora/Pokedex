@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,8 +9,6 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5000/users";
-
-// Definicja schematu walidacji Zod
 const schema = z.object({
   email: z
     .string()
@@ -34,8 +32,6 @@ const Login = () => {
   });
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
-  // Funkcja obsługująca logowanie
   const onSubmit = async (data) => {
     try {
       const response = await axios.get(
@@ -45,8 +41,6 @@ const Login = () => {
         enqueueSnackbar("Niepoprawny email lub hasło.", { variant: "error" });
         return;
       }
-
-      // Logowanie użytkownika
       login(response.data[0]);
       enqueueSnackbar(
         `Zalogowano pomyślnie! Witaj, ${response.data[0].name}.`,
@@ -59,7 +53,6 @@ const Login = () => {
       });
     }
   };
-
   return (
     <div
       className={`p-6 max-w-md mx-auto rounded-lg shadow-lg ${
@@ -68,7 +61,6 @@ const Login = () => {
     >
       <h2 className="text-2xl font-bold mb-4">Logowanie</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Pole email */}
         <div className="mb-4">
           <label className="block">Email</label>
           <input
@@ -80,8 +72,6 @@ const Login = () => {
             <p className="text-red-500">{errors.email.message}</p>
           )}
         </div>
-
-        {/* Pole hasło */}
         <div className="mb-4">
           <label className="block">Hasło</label>
           <input
@@ -93,7 +83,6 @@ const Login = () => {
             <p className="text-red-500">{errors.password.message}</p>
           )}
         </div>
-
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded"

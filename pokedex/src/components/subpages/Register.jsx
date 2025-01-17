@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5000/users";
 
-// Schemat walidacji Zod
 const schema = z
   .object({
     name: z
@@ -49,7 +48,6 @@ const Register = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  // Obsługa rejestracji
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(API_URL, data);
@@ -70,7 +68,6 @@ const Register = () => {
     >
       <h2 className="text-2xl font-bold mb-4">Rejestracja</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Pole Imię */}
         <div className="mb-4">
           <label className="block">Imię</label>
           <input
@@ -80,8 +77,6 @@ const Register = () => {
           />
           {errors.name && <p className="text-red-500">{errors.name.message}</p>}
         </div>
-
-        {/* Pole Email */}
         <div className="mb-4">
           <label className="block">Email</label>
           <input
@@ -93,8 +88,6 @@ const Register = () => {
             <p className="text-red-500">{errors.email.message}</p>
           )}
         </div>
-
-        {/* Pole Hasło */}
         <div className="mb-4">
           <label className="block">Hasło</label>
           <input
@@ -106,8 +99,6 @@ const Register = () => {
             <p className="text-red-500">{errors.password.message}</p>
           )}
         </div>
-
-        {/* Pole Powtórz Hasło */}
         <div className="mb-4">
           <label className="block">Powtórz Hasło</label>
           <input
@@ -119,7 +110,6 @@ const Register = () => {
             <p className="text-red-500">{errors.repeatPassword.message}</p>
           )}
         </div>
-
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded"
