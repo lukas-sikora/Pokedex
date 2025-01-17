@@ -113,7 +113,62 @@ export const DataProvider = ({ children }) => {
       console.error("Błąd podczas aktualizacji Pokémona:", error);
     }
   };
+  const addToFavorites = async (pokemon) => {
+    try {
+      const newFavorite = { ...pokemon, id: `${Date.now()}` };
+      await axios.post("http://localhost:5000/favorites", newFavorite);
+      setFavorites((prev) => [...prev, newFavorite]);
+    } catch (error) {
+      console.error("Błąd podczas dodawania do ulubionych:", error);
+    }
+  };
 
+  const removeFromFavorites = async (pokeID) => {
+    try {
+      const favoriteToRemove = favorites.find((p) => p.pokeID === pokeID);
+      if (favoriteToRemove) {
+        await axios.delete(
+          `http://localhost:5000/favorites/${favoriteToRemove.id}`
+        );
+        setFavorites((prev) =>
+          prev.filter((pokemon) => pokemon.pokeID !== pokeID)
+        );
+      }
+    } catch (error) {
+      console.error("Błąd podczas usuwania z ulubionych:", error);
+    }
+  };
+
+  const addToArena = async (pokemon) => {
+    if (arena.length >= 2) {
+      alert("Arena może pomieścić maksymalnie dwóch Pokémonów!");
+      return;
+    }
+
+    try {
+      const newArenaPokemon = { ...pokemon, id: `${Date.now()}` };
+      await axios.post("http://localhost:5000/arena", newArenaPokemon);
+      setArena((prev) => [...prev, newArenaPokemon]);
+    } catch (error) {
+      console.error("Błąd podczas dodawania Pokémona do areny:", error);
+    }
+  };
+
+  const removeFromArena = async (pokeID) => {
+    try {
+      const arenaPokemonToRemove = arena.find((p) => p.pokeID === pokeID);
+      if (arenaPokemonToRemove) {
+        await axios.delete(
+          `http://localhost:5000/arena/${arenaPokemonToRemove.id}`
+        );
+        setArena((prev) =>
+          prev.filter((pokemon) => pokemon.pokeID !== pokeID)
+        );
+      }
+    } catch (error) {
+      console.error("Błąd podczas usuwania Pokémona z areny:", error);
+    }
+  };
   return (
     <DataContext.Provider
       value={{
@@ -123,6 +178,10 @@ export const DataProvider = ({ children }) => {
         fetchAllData,
         addPokemon,
         updatePokemon,
+        addToFavorites,
+        removeFromFavorites,
+        addToArena,
+        removeFromArena,
       }}
     >
       {children}

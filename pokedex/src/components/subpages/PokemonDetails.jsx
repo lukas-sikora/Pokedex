@@ -10,7 +10,7 @@ import SwordIconComponent from "../../icons/SwordIconComponent";
 const PokemonDetails = () => {
   const { theme, gradients } = useContext(ThemeContext);
   const { user } = useContext(LoginContext);
-  const { pokemons, favorites, addFavorite, removeFavorite, arena, addToArena, removeFromArena } =
+  const { pokemons, favorites, addToFavorites, removeFromFavorites, arena, addToArena, removeFromArena } =
     useContext(DataContext);
   const { enqueueSnackbar } = useSnackbar();
   const { name } = useParams();
@@ -38,10 +38,10 @@ const PokemonDetails = () => {
   const handleFavoriteToggle = () => {
     const favoritePokemon = favorites.find((fav) => fav.pokeID === pokemon.pokeID);
     if (favoritePokemon) {
-      removeFavorite(pokemon.pokeID);
+      removeFromFavorites(pokemon.pokeID);
       enqueueSnackbar(`${pokemon.name} został usunięty z ulubionych.`, { variant: "info" });
     } else {
-      addFavorite(pokemon);
+      addToFavorites(pokemon);
       enqueueSnackbar(`${pokemon.name} został dodany do ulubionych.`, { variant: "success" });
     }
   };

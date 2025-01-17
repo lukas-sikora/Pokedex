@@ -1,26 +1,21 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../../context/DataContext";
 import { useSnackbar } from "notistack";
 import PokemonCard from "../shared/PokemonCard";
 import Pokeball from "../../assets/PNG/Pokeball.png";
 
 const Arena = () => {
-  const { arena, addToArena, removeFromArena } = useContext(DataContext);
+  const { arena, removeFromArena, updatePokemon } = useContext(DataContext);
   const { enqueueSnackbar } = useSnackbar();
   const [battleResult, setBattleResult] = useState(null);
-
-  useEffect(() => {
-    if (battleResult) {
-      const timer = setTimeout(() => {
-        setBattleResult(null);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [battleResult]);
+  const capitalize = (text) => {
+    if (!text) return "";
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+  };
 
   const handleBattle = () => {
     if (arena.length !== 2) {
-      enqueueSnackbar("Aby rozpocząć walkę, na arenie musż być dwa Pokemony.", {
+      enqueueSnackbar("Aby rozpocząć walkę, potrzebne są dwa Pokemony.", {
         variant: "warning",
       });
       return;
@@ -30,27 +25,42 @@ const Arena = () => {
     const score1 = pokemon1.base_experience * pokemon1.weight;
     const score2 = pokemon2.base_experience * pokemon2.weight;
 
-    let winner, loser;
-
     if (score1 > score2) {
-      winner = pokemon1;
-      loser = pokemon2;
+      finalizeBattle(pokemon1, pokemon2);
     } else if (score2 > score1) {
-      winner = pokemon2;
-      loser = pokemon1;
+      finalizeBattle(pokemon2, pokemon1);
     } else {
       setBattleResult({ draw: true });
       enqueueSnackbar("Remis! Żaden Pokémon nie wygrywa.", { variant: "info" });
-      return;
     }
-console.log("Zwycięsca",winner.name)
+  };
+
+  const finalizeBattle = async (winner, loser) => {
     setBattleResult({ winner, loser });
-    enqueueSnackbar(`${(winner.name)} wygrał walkę!`, { variant: "success" });
+
+    enqueueSnackbar(`${capitalize(winner.name)} wygrał walkę!`, { variant: "success" });
+
+    const updatedWinner = {
+      ...winner,
+      win: (winner.win || 0) + 1,
+      lose: winner.lose || 0,
+      base_experience: winner.base_experience + 10,
+    };
+
+    const updatedLoser = {
+      ...loser,
+      win: loser.win || 0,
+      lose: (loser.lose || 0) + 1,
+    };
+
+    await updatePokemon(updatedWinner);
+    await updatePokemon(updatedLoser);
   };
 
   const handleExitArena = () => {
     arena.forEach((pokemon) => removeFromArena(pokemon.pokeID));
-    enqueueSnackbar("Arena została opróżniona.", { variant: "info" });
+    setBattleResult(null);
+    enqueueSnackbar("Pokemony opuściły arenę.", { variant: "info" });
   };
 
   return (
@@ -59,12 +69,14 @@ console.log("Zwycięsca",winner.name)
         {arena[0] ? (
           <div className="relative">
             <PokemonCard pokemon={arena[0]} />
-            {/* <button
-              onClick={() => removeFromArena(arena[0].pokeID)}
-              className="absolute top-2 left-2 bg-gray-600 text-white p-1 rounded-lg"
-            >
-              Usuń
-            </button> */}
+            {battleResult === null && (
+              <button
+                onClick={() => removeFromArena(arena[0].pokeID)}
+                className="absolute top-2 left-2 bg-gray-600 text-white p-1 rounded-lg"
+              >
+                Usuń
+              </button>
+            )}
           </div>
         ) : (
           <img
@@ -100,12 +112,14 @@ console.log("Zwycięsca",winner.name)
         {arena[1] ? (
           <div className="relative">
             <PokemonCard pokemon={arena[1]} />
-            {/* <button
-              onClick={() => removeFromArena(arena[1].pokeID)}
-              className="absolute top-2 left-2 bg-gray-600 text-white p-1 rounded-lg"
-            >
-              Usuń
-            </button> */}
+            {battleResult === null && (
+              <button
+                onClick={() => removeFromArena(arena[1].pokeID)}
+                className="absolute top-2 left-2 bg-gray-600 text-white p-1 rounded-lg"
+              >
+                Usuń
+              </button>
+            )}
           </div>
         ) : (
           <img
@@ -129,7 +143,7 @@ console.log("Zwycięsca",winner.name)
           <img
             src={battleResult.loser.image}
             alt={`${battleResult.loser.name} przegrywa`}
-            className="w-24 h-24 mx-auto opacity-50"
+            className="w-24 h-24 mx-auto opacity-50 transform scale-75"
           />
         </div>
       )}
